@@ -25,17 +25,13 @@ with open(csvpath) as csvfile:
 
     for i in range(1, len(pl)):
         revenueChange.append(int(pl[i]) - int(pl[i-1]))
-        # print(str(months[i]) + ',' + str(pl[i]))
+
         # print(revenueChange)
         # print(int(pl[i]))
         # print(int(pl[i-1]))
 
     # print(months[25])
-    # print(months[25])
 
-    # print(f'Months Size: {len(months)}')
-    # print(f'PL Size: {len(pl)}')
-    # print(f'Revenue Change Size: {len(revenueChange)}')
     avgRevenueChange = sum(revenueChange)/len(revenueChange)
     greatestIncrease = max(revenueChange)
     greatestDecrease = min(revenueChange)
