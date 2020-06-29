@@ -3,13 +3,13 @@ import csv
 
 # Set path for file
 csvpath = os.path.join('Resources', 'budget_data.csv')
+# Specify the file to write to
+outputFile = os.path.join("output")
 
-
-# def printAnalysis()
 months = []
 pl = []
-revenueChange = []
-totalRevenueChange = 0
+netIncome = []
+
 
 # Open csv file
 with open(csvpath) as csvfile:
@@ -17,41 +17,41 @@ with open(csvpath) as csvfile:
     csvheader = next(csvreader)
     # print(f'CSVHeader: {csvheader}')
     for row in csvreader:
-        # print(row[0] + ' ' + row[1])
+
         months.append(row[0])
         pl.append(int(row[1]))
     totalMonths = len(months)
-    totalAmtProfitLosses = sum(pl)
+    totalNet = sum(pl)
 
     for i in range(1, len(pl)):
-        revenueChange.append(int(pl[i]) - int(pl[i-1]))
-        # print(str(months[i]) + ',' + str(pl[i]))
-        # print(revenueChange)
-        # print(int(pl[i]))
-        # print(int(pl[i-1]))
+        netIncome.append(int(pl[i]) - int(pl[i-1]))
 
-    # print(months[25])
-    # print(months[25])
+    netMonthlyAvg = sum(netIncome)/len(netIncome)
+    greatestIncrease = max(netIncome)
+    greatestDecrease = min(netIncome)
 
-    # print(f'Months Size: {len(months)}')
-    # print(f'PL Size: {len(pl)}')
-    # print(f'Revenue Change Size: {len(revenueChange)}')
-    avgRevenueChange = sum(revenueChange)/len(revenueChange)
-    greatestIncrease = max(revenueChange)
-    greatestDecrease = min(revenueChange)
-    print(greatestIncrease)
-    print(revenueChange.index(max(revenueChange)))
-    # print(pl.index[greatestIncrease])
-    # print(myList.index("Matt"))
-    # print(str(months[revenueChange.index(max(revenueChange))+1]))
+# Generate output summary
+output = (
+    f'Financial Analysis\n'
+    f'----------------------------\n'
+    f'Total Months: {totalMonths} \n'
+    f'Total: $ {totalNet}\n'
+    f'Average Change: $ {netMonthlyAvg}\n'
+    f'Greatest Increase in Profits: {months[netIncome.index(greatestIncrease)+1]} ({greatestIncrease})\n'
+    f'Greatest Decrease in Profits: {months[netIncome.index(greatestDecrease)+1]} ({greatestDecrease})'
+)
 
+# Print the output to terminal
+print(output)
+# Export the results to text file
+with open(outputFile, "w") as txtFile:
+    txtFile.write(output)
 
-print('Financial Analysis')
-print('----------------------------')
-print(f'Total Months: {totalMonths}')
-print(f'Total: $ {totalAmtProfitLosses}')
-print(f'Average Change: $ {avgRevenueChange}')
-print(
-    f'Greatest Increase in Profits: {months[revenueChange.index(max(revenueChange))+1]} ({greatestIncrease})')
-print(
-    f'Greatest Decrease in Profits: {months[revenueChange.index(min(revenueChange))+1]} ({greatestDecrease})')
+'''
+ save the output file path
+output_file = os.path.join("output.csv")
+
+# open the output file, create a header row, and then write the zipped object to the csv
+with open(output_file, "w") as datafile:
+    writer = csv.writer(datafile)
+'''
