@@ -4,7 +4,7 @@ import csv
 # Set path for file
 csvpath = os.path.join('Resources', 'budget_data.csv')
 # Specify the file to write to
-outputFile = os.path.join("output")
+file_to_output = os.path.join("analysis/output.txt")
 
 months = []
 pl = []
@@ -36,22 +36,13 @@ output = (
     f'----------------------------\n'
     f'Total Months: {totalMonths} \n'
     f'Total: $ {totalNet}\n'
-    f'Average Change: $ {netMonthlyAvg}\n'
-    f'Greatest Increase in Profits: {months[netIncome.index(greatestIncrease)+1]} ({greatestIncrease})\n'
-    f'Greatest Decrease in Profits: {months[netIncome.index(greatestDecrease)+1]} ({greatestDecrease})'
+    f'Average Change: $ {netMonthlyAvg: .2f}\n'
+    f'Greatest Increase in Profits: {months[netIncome.index(greatestIncrease)+1]} ($ { greatestIncrease})\n'
+    f'Greatest Decrease in Profits: {months[netIncome.index(greatestDecrease)+1]} ($ { greatestDecrease})'
 )
 
 # Print the output to terminal
 print(output)
 # Export the results to text file
-with open(outputFile, "w") as txtFile:
+with open(file_to_output, "w") as txtFile:
     txtFile.write(output)
-
-'''
- save the output file path
-output_file = os.path.join("output.csv")
-
-# open the output file, create a header row, and then write the zipped object to the csv
-with open(output_file, "w") as datafile:
-    writer = csv.writer(datafile)
-'''
